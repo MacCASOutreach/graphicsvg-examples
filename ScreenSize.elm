@@ -10,8 +10,8 @@ import Task
 
 type alias Model = 
     { time : Float
-    , x : Int
-    , y : Int
+    , w : Int
+    , h : Int
     }
 
 type Msg = 
@@ -36,26 +36,26 @@ init : Model
 init =
         {
             time = 0
-        ,   x = 0
-        ,   y = 0
+        ,   w = 0
+        ,   h = 0
         }
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
     case msg of 
-        Tick t (_,(_,y),_) -> ( { model | time = t }, Cmd.none )
+        Tick t (_,(_,h),_) -> ( { model | time = t }, Cmd.none )
         OnUrlChange _ -> ( model, Cmd.none )
         OnUrlRequest _ -> ( model, Cmd.none )
-        OnResize x y -> ( { model | x = x, y = y }, Cmd.none) -- store new screen size in the model
+        OnResize w h -> ( { model | w = w, h = h }, Cmd.none) -- store new screen size in the model
 
 title : Model -> String
 title model =
     "App with Tick Example"
 
 view : Model -> Collage Msg
-view model = collage (toFloat model.x) (toFloat model.y)
-    [ rect (toFloat model.x) (toFloat model.y) |> filled (hsl model.time 0.5 0.5)
-    , text ("Screen size: " ++ String.fromInt model.x ++ "," ++ String.fromInt model.y) |> centered |> filled black
+view model = collage (toFloat model.w) (toFloat model.h)
+    [ rect (toFloat model.w) (toFloat model.h) |> filled (hsl model.time 0.5 0.5)
+    , text ("Screen size: " ++ String.fromInt model.w ++ "," ++ String.fromInt model.h) |> centered |> filled black
     ]
 
 biggerButton = 
